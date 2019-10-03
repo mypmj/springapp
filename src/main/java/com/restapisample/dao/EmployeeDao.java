@@ -21,7 +21,7 @@ public class EmployeeDao {
 	}
 	// get employee details
 	public Employee findById(Long empId) {
-		return employeeRepo.getOne(empId);
+		return employeeRepo.findById(empId).get();
 	}
 	// get all employee info
 	public List<Employee> findAll(){

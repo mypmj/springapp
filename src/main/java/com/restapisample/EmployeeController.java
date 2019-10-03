@@ -29,23 +29,24 @@ public class EmployeeController {
 	
 	@Autowired
 	EmployeeDao employeeDao;
-	// Post - 
+	// Create new Employee  
 	@PostMapping("/employees")
 	public Employee createEmployee(@Valid @RequestBody Employee emp) {
 		return employeeDao.save(emp);
 	}
-	// Get 
+	// Get all employee details
 	@GetMapping("/employees")
 	public List<Employee> getAllEmployees() {
 		return employeeDao.findAll();
 	}
-	// GET
+	// Get employee details
 	@GetMapping("/employees/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value="id") Long empId ) {
 		Employee emp;
+		// check for Employee object existence
 		try {
 			emp = employeeDao.findById(empId);
-		} catch(EntityNotFoundException e) {
+		} catch(Exception e) {
 			emp = null;
 		}
 		if (emp == null) {
@@ -54,11 +55,17 @@ public class EmployeeController {
 		
 		return ResponseEntity.ok().body(emp);
 	}
-	// PUT 
+	// Update employee  
 	@PutMapping("/employees/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long empId, @Valid @RequestBody Employee empDetails) {
-		Employee emp = employeeDao.findById(empId);
-		
+		Employee emp;
+		// check for Employee object existence
+		try {
+			emp = employeeDao.findById(empId);
+		} catch(Exception e) {
+			emp = null;
+		}
+			
 		if (emp == null) {
 			return ResponseEntity.notFound().build();
 		}
@@ -70,10 +77,17 @@ public class EmployeeController {
 		
 		return ResponseEntity.ok().body(updateEmp);
 	}
-	// Delete
+	// Remove employee 
 	@DeleteMapping("/employees/{id}")
 	public ResponseEntity<Employee> deleteEmployeeById(@PathVariable(value = "id") Long empId){
-		Employee emp = employeeDao.findById(empId);
+	
+		Employee emp;
+		// check for Employee object existence
+		try {
+			emp = employeeDao.findById(empId);
+		} catch(Exception e) {
+			emp = null;
+		}
 		
 		if (emp == null) {
 			return ResponseEntity.notFound().build();

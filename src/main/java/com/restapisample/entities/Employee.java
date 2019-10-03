@@ -3,8 +3,6 @@
  */
 package com.restapisample.entities;
 
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +18,7 @@ import org.hibernate.annotations.NotFoundAction;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * @author DELL
+ * @author Jinesh Madhavan
  *
  */
 @Entity
@@ -32,7 +30,6 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long empId;
 	
-	//@NotFound(action=NotFoundAction.IGNORE)
 	@NotBlank 
 	private String name;
 	
